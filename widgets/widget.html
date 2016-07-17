@@ -29,11 +29,14 @@
       var self = this;
       self.classList.add('widget');
       self.getHandles().forEach(function(handle) {
-        handle.addEventListener('mousedown', function(event) {
-          self._widgetHandleMousedown(event);
-        });
-        handle.addEventListener('mouseup', function(event) {
-          self._widgetHandleMouseup(event);
+//         handle.addEventListener('mousedown', function(event) {
+//           self._widgetHandleMousedown(event);
+//         });
+//         handle.addEventListener('mouseup', function(event) {
+//           self._widgetHandleMouseup(event);
+//         });
+        handle.addEventListener('touchstart', function(event) {
+          self.fire('dragStart', event);
         });
       });
     },

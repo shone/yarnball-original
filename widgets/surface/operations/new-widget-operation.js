@@ -6,8 +6,8 @@ define(function() {
   
   NewWidgetOperation.prototype.begin = function(widget, position) {
     this.surface.attachWidget(widget, position);
-    this.surfaceWeb.addWidget(widget);
-    this.surfaceWeb.setWidgetPosition(widget.widgetId, this.surface.getWidgetPosition(widget));
+//     this.surfaceWeb.addWidget(widget);
+//     this.surfaceWeb.setWidgetPosition(widget.widgetId, this.surface.getWidgetPosition(widget));
     
     this.surface.finishOperation(this);
   }

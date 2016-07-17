@@ -4,26 +4,10 @@ define(function() {
 
   }
   
-  ZoomOperation.prototype.begin = function(event) {
-    var cursorPosView = {
-      x: event.offsetX - this.surface.viewMargin,
-      y: event.offsetY - this.surface.viewMargin,
-    }
+  ZoomOperation.prototype.begin = function(position, zoomOffset) {
     
-    var zoomSpeed = null;
-    if (event.deltaMode === 0) { // Pixels
-      zoomSpeed = 0.08;
-    } else if (event.deltaMode === 1) { // Lines
-      zoomSpeed = 0.16;
-    } else if (event.deltaMode === 2) { // Pages
-      zoomSpeed = 0.2;
-    } else {
-      zoomSpeed = 0.08;
-    }
-    
-    var zoomOffset = (event.deltaY < 0) ? zoomSpeed : -zoomSpeed;
-    
-    this.surface.zoomOnPosition(cursorPosView, zoomOffset);
+//     this.surface.zoomOnPosition(cursorPosView, zoomOffset);
+    this.surface.viewRoot.panzoomTowardPosition(position, zoomOffset);
     this.surface.finishOperation(this);
   }
   
@@ -40,7 +24,28 @@ define(function() {
       surface.background.addEventListener('wheel', function(event) {
         if (surface.canBeginOperation()) {
           event.preventDefault();
-          surface.beginOperation(ZoomOperation, event);
+          
+          var position = {
+            transformed: {
+              x: event.offsetX - surface.viewMargin,
+              y: event.offsetY - surface.viewMargin,
+            }
+          }
+          
+          var zoomSpeed = null;
+          if (event.deltaMode === 0) { // Pixels
+            zoomSpeed = 0.08;
+          } else if (event.deltaMode === 1) { // Lines
+            zoomSpeed = 0.16;
+          } else if (event.deltaMode === 2) { // Pages
+            zoomSpeed = 0.2;
+          } else {
+            zoomSpeed = 0.08;
+          }
+          
+          var zoomOffset = (event.deltaY < 0) ? zoomSpeed : -zoomSpeed;
+          
+          surface.beginOperation(ZoomOperation, position, zoomOffset);
           return false;
         }
       });

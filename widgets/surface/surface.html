@@ -4,6 +4,8 @@
 <link rel="import" href="context-menus.html">
 <link rel="import" href="search-panel.html">
 
+<link rel="import" href="../../../polymer-panzoom/panzoom.html">
+
 <link rel="import" href="../../../paper-button/paper-button.html">
 
 <link rel="import" href="../error-overlay/error-overlay.html">
@@ -29,10 +31,10 @@
 
   <template>
   
-    <div id="viewRoot">
+    <yb-panzoom id="viewRoot">
       <div id="background" on-mousedown="backgroundMousedown" on-dblclick="backgroundDblclick"></div>
       <div id="boxSelection" class="hidden"></div>
-    </div>
+    </yb-panzoom>
     
     <paper-button class="edge-button" id="fullscreenButton" on-tap="toggleFullscreen">
       <iron-icon icon="icons:fullscreen" item-icon></iron-icon>
@@ -67,9 +69,9 @@
         created: function() {
           var self = this;
           
-          self.viewTranslate = {x: 0, y: 0};
-          self.viewScale     = 1.0;
-          self.viewOrigin    = {x: 0, y: 0};
+//           self.viewTranslate = {x: 0, y: 0};
+//           self.viewScale     = 1.0;
+//           self.viewOrigin    = {x: 0, y: 0};
           self.viewMargin    = 10000;
           
           self.widgets       = new Set();
@@ -110,7 +112,7 @@
           self.background   = self.$.background;
           self.boxSelection = self.$.boxSelection;
           
-          self.setView(self.viewTranslate, self.viewScale, self.viewOrigin);
+//           self.setView(self.viewTranslate, self.viewScale, self.viewOrigin);
         
           // Install operations
           require(
@@ -163,7 +165,7 @@
           
               self.surfaceWeb = SurfaceWeb(web, self.node);
               self.surfaceWeb.initializeSurface(self);
-              self.panZoomToShowAll();
+//               self.panZoomToShowAll();
             });
           });
         },
@@ -304,76 +306,76 @@
           window.addEventListener('mousemove', mousemove);
           window.addEventListener('mouseup',   mouseup);
         },
-        setView: function(translate, scale, origin) {
-          this.viewTranslate = translate;
-          this.viewScale     = scale;
-          this.viewOrigin    = origin;
-          this.viewRoot.style.transform = 'translate(' + translate.x + 'px, ' + translate.y + 'px) scale(' + scale + ')';
-          this.viewRoot.style['transform-origin'] = origin.x + 'px ' + origin.y + 'px';
-        },
-        moveView: function(offset) {
-          this.setView({
-              x: this.viewTranslate.x + offset.x,
-              y: this.viewTranslate.y + offset.y,
-            },
-            this.viewScale,
-            this.viewOrigin
-          );
-        },
-        zoom: function(zoomOffset) {
-          var surfaceRect = this.getBoundingClientRect();
-          var viewRootRect = this.viewRoot.getBoundingClientRect();
-          var surfaceCenter = {
-            x: surfaceRect.left + (surfaceRect.width  / 2),
-            y: surfaceRect.top  + (surfaceRect.height / 2),
-          }
-          this.zoomOnPosition(
-            {
-              x: (surfaceCenter.x - viewRootRect.left) / this.viewScale,
-              y: (surfaceCenter.y - viewRootRect.top)  / this.viewScale,
-            },
-            zoomOffset,
-            true
-          );
-        },
-        zoomOnPosition: function(position, zoomOffset) {
-          this.setView(
-            {
-              x: this.viewTranslate.x + ((position.x - this.viewOrigin.x) * (this.viewScale - 1.0)),
-              y: this.viewTranslate.y + ((position.y - this.viewOrigin.y) * (this.viewScale - 1.0)),
-            },
-            this.viewScale * (1.0 + zoomOffset),
-            {
-              x: position.x,
-              y: position.y,
-            }
-          );
-        },
-        panZoomToShowAll: function() {
-          if (this.widgetsTopLevel.size === 0) {
-            return;
-          }
-          var widgetBounds = this.getAllWidgetsBounds();
-          var surfaceRect = this.getBoundingClientRect();
-          var widgetsCenter = {
-            x: widgetBounds.left + (widgetBounds.width  / 2),
-            y: widgetBounds.top  + (widgetBounds.height / 2),
-          }
-          var scaleToFit = null;
-          if ((widgetBounds.width / widgetBounds.height) > (surfaceRect.width / surfaceRect.height)) {
-            scaleToFit = surfaceRect.width / widgetBounds.width;
-          } else {
-            scaleToFit = surfaceRect.height / widgetBounds.height;
-          }
-          this.setView(
-            {
-              x: -(widgetsCenter.x - (surfaceRect.width  / 2)),
-              y: -(widgetsCenter.y - (surfaceRect.height / 2)),
-            },
-            Math.min(2, scaleToFit * 0.9),
-            widgetsCenter
-          );
-        },
+//         setView: function(translate, scale, origin) {
+//           this.viewTranslate = translate;
+//           this.viewScale     = scale;
+//           this.viewOrigin    = origin;
+//           this.viewRoot.style.transform = 'translate(' + translate.x + 'px, ' + translate.y + 'px) scale(' + scale + ')';
+//           this.viewRoot.style['transform-origin'] = origin.x + 'px ' + origin.y + 'px';
+//         },
+//         moveView: function(offset) {
+//           this.setView({
+//               x: this.viewTranslate.x + offset.x,
+//               y: this.viewTranslate.y + offset.y,
+//             },
+//             this.viewScale,
+//             this.viewOrigin
+//           );
+//         },
+//         zoom: function(zoomOffset) {
+//           var surfaceRect = this.getBoundingClientRect();
+//           var viewRootRect = this.viewRoot.getBoundingClientRect();
+//           var surfaceCenter = {
+//             x: surfaceRect.left + (surfaceRect.width  / 2),
+//             y: surfaceRect.top  + (surfaceRect.height / 2),
+//           }
+//           this.zoomOnPosition(
+//             {
+//               x: (surfaceCenter.x - viewRootRect.left) / this.viewScale,
+//               y: (surfaceCenter.y - viewRootRect.top)  / this.viewScale,
+//             },
+//             zoomOffset,
+//             true
+//           );
+//         },
+//         zoomOnPosition: function(position, zoomOffset) {
+//           this.setView(
+//             {
+//               x: this.viewTranslate.x + ((position.x - this.viewOrigin.x) * (this.viewScale - 1.0)),
+//               y: this.viewTranslate.y + ((position.y - this.viewOrigin.y) * (this.viewScale - 1.0)),
+//             },
+//             this.viewScale * (1.0 + zoomOffset),
+//             {
+//               x: position.x,
+//               y: position.y,
+//             }
+//           );
+//         },
+//         panZoomToShowAll: function() {
+//           if (this.widgetsTopLevel.size === 0) {
+//             return;
+//           }
+//           var widgetBounds = this.getAllWidgetsBounds();
+//           var surfaceRect = this.getBoundingClientRect();
+//           var widgetsCenter = {
+//             x: widgetBounds.left + (widgetBounds.width  / 2),
+//             y: widgetBounds.top  + (widgetBounds.height / 2),
+//           }
+//           var scaleToFit = null;
+//           if ((widgetBounds.width / widgetBounds.height) > (surfaceRect.width / surfaceRect.height)) {
+//             scaleToFit = surfaceRect.width / widgetBounds.width;
+//           } else {
+//             scaleToFit = surfaceRect.height / widgetBounds.height;
+//           }
+//           this.setView(
+//             {
+//               x: -(widgetsCenter.x - (surfaceRect.width  / 2)),
+//               y: -(widgetsCenter.y - (surfaceRect.height / 2)),
+//             },
+//             Math.min(2, scaleToFit * 0.9),
+//             widgetsCenter
+//           );
+//         },
         backgroundMousedown: function(event) {
         
           var self = this;

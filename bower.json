@@ -22,6 +22,7 @@
     "iron-elements": "PolymerElements/iron-elements#~1.0.7",
     "requirejs": "requirejs-bower#~2.1.22",
     "normalize-css": "normalize.css#~3.0.3",
-    "page": "visionmedia/page.js#~1.6.4"
+    "page": "visionmedia/page.js#~1.6.4",
+    "polymer-panzoom": "git@github.com:joshua-shone/polymer-panzoom.git"
   }
 }

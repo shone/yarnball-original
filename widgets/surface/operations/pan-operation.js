@@ -9,7 +9,8 @@ define(function() {
     self.surface.captureMouse(event, {
       cursor: '-webkit-grabbing',
       mousemove: function(options) {
-        self.surface.moveView(options.currentDeltaPage);
+        self.surface.viewRoot.panOffset(options.currentDeltaPage);
+//         self.surface.moveView(options.currentDeltaPage);
       },
       mouseup: function() {
         self.surface.finishOperation(self);
