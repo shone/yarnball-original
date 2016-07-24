@@ -248,9 +248,9 @@
           var pathLength = this.highlightPath.getTotalLength();
           var animation = this.highlightPath.animate(
             [
-              {stroke: color, opacity: 1.0, 'stroke-dasharray':  pathLength, 'stroke-dashoffset': reverse ? 0           : pathLength},
-              {stroke: color, opacity: 0.5, 'stroke-dasharray':  pathLength, 'stroke-dashoffset': reverse ? 0           : 0         },
-              {stroke: color, opacity: 0.0, 'stroke-dasharray':  pathLength, 'stroke-dashoffset': reverse ? -pathLength : 0         },
+              {stroke: color, opacity: 1.0, strokeDasharray:  pathLength, strokeDashoffset: reverse ? 0           : pathLength},
+              {stroke: color, opacity: 0.5, strokeDasharray:  pathLength, strokeDashoffset: reverse ? 0           : 0         },
+              {stroke: color, opacity: 0.0, strokeDasharray:  pathLength, strokeDashoffset: reverse ? -pathLength : 0         },
             ],
             {
               duration: duration,
