@@ -847,9 +847,10 @@
             id = this.Node();
           }
           nodeWidget.set('nodeId', this.Node.toHex(id));
-          if (widgetId) {
-            nodeWidget.widgetId = widgetId;
+          if (!widgetId) {
+            widgetId = this.Node();
           }
+          nodeWidget.widgetId = widgetId;
           
           return nodeWidget;
         },
@@ -1254,9 +1255,10 @@
           
           connector.active = ('active' in options) ? options.active : true;
           
-          if (options.widgetId) {
-            connector.widgetId = options.widgetId;
+          if (!options.widgetId) {
+            options.widgetId = self.Node();
           }
+          connector.widgetId = options.widgetId;
           
           connector.set('showHandles',    connector.active);
           connector.set('highlightOnly', !connector.active);

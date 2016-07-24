@@ -111,6 +111,10 @@ define(['yarnball/core/node', 'yarnball/core/batch', 'yarnball/core/map', 'yarnb
       return;
     }
     
+    if (!widget.widgetId) {
+      throw 'Cannot add widget to surface-web, widget has no ID.';
+    }
+    
     var batch = Batch(this._web);
     
     var WidgetProperties = Map_(batch, widget.widgetId);
