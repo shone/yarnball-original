@@ -2,6 +2,12 @@
 
 Yarnball is javascript/Node.JS library and [Polymer](https://www.polymer-project.org) toolkit for working with simplified graph-based data-structures.
 
+## Demo
+```bash
+npm install
+npm start -- --port=8080
+```
+
 For example:
 ```javascript
 var Cookie = Node();

@@ -5,9 +5,9 @@ var yargs   = require('yargs');
 var app = express();
 var server = http.Server(app);
 
-app.use(express.static('.'));
-app.use('/yarnball', express.static('../../'));
-app.use(express.static('../../bower_components/'));
+app.use(express.static('widgets/surface'));
+app.use('/yarnball', express.static('.'));
+app.use(express.static('bower_components/'));
 
 var port = yargs.argv['port'] || 8080;
 
